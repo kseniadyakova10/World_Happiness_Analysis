@@ -1,0 +1,9 @@
+.country {
+    fill: black;
+    stroke: white;
+    stroke-width: 0.10px;
+}
+
+.country:hover {
+    fill: red;
+}

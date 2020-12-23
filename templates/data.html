@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Data</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  
+
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/index.html">World Happiness</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Charts<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="world_map.html">World Map</a></li>
+            <li><a href="radar_chart.html">Radar Chart</a></li>
+            <li><a href="line_chart.html">Line Chart</a></li>
+            <li><a href="#">Data</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /navbar -->
+
+  <div>
+
+      {% for x in project_1 %}
+        {{x.country}}
+        <p>
+          Rank: {{x.rank}} Score: {{x.score}} GDP: {{x.gdp}} Social Support: {{x.social_support}}
+          Life Expectancy: {{x.life_expectancy}} Freedom: {{x.freedom}} Generosity: {{x.generosity}} Corruption: {{x.corruption}}
+        </p>
+
+      {% endfor %}
+
+  </div>
+
+  <div>
+    <p>Return <a href="/">home!</a></p>
+  </div>
+
+
+</body>
+</html>
+  
