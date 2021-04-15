@@ -9,6 +9,7 @@ Using Kaggle, we obtained 5 CSV files with information regarding each countires 
 * absence of corruption
 * freedom
 * generocity
+
 To make analysis easier to read, we were able to make edits in datasets that would be consistent for MongoDB import.
 ![Data_cleanup](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/data_cleanup.png?raw=true)
 After connecting to MongoDB and inserting our data, we created a Flask app in order to run and use our data for our Javascript visualizations.
