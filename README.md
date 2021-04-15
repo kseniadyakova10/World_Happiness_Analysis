@@ -4,26 +4,20 @@ The focus of the project is to explore and analyze the state of happiness in ind
 
 ### Data Cleanup 
 Three biggest files we worked with were NYPD Arrest Data Year to Date(2019 extraction),NYPD Arrest Data Historic(2020 extraction) and NYPD Hospitalization Counts. Since we only needed two specific years, we were able to extract those years and work with much smaller files for our analysis.
-![Data_cleanup]()
+![Data_cleanup](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/data_cleanup.png?raw=true)
+![flask](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/flask_app.png?raw=true)
 
-### Top 15 crimes analysis
+### World Map
 Starting focus was on months of March, April and May for 2019 and 2020. Obsdervation was made that some of the crimes of 2019 became much less popular in 2020 and vice versa.
-![Top 15]()
+![world map](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/world_map.png?raw=true)
 
-### YOY % change in Crime Rate
+### Radar Chart
 After observing some movement in top 15 crime analysis, we wanted to see if there is an overall change across all crimes and how big of a change, if any.
-![YOY change]()
+![radar chart](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/radar_chart.png?raw=true)
 
-### Age group analysis
+### Line Chart
 Focusing in on age groups of 18-24 and 25-44, assault, drugs and larceny were most common crimes of both age groups. However, there is a huge increase in 25-44 age group in year 2019.
-![2019 age group]()
-
-In 2020, there is a big drop as far as the amount of crimes committed within both age groups. Although 25-44 are still in the lead. Also, it seemes that robbery became more popular among 18-24 year olds opposed to larceny among 25-44 year olds.
-![2020 age group]()
-
-### Covid-19 vs Arrests analysis
-Our final analysis was made on rates of Covid-19 case, death and hospitalization count vs NYPD arrest count. We wanted to see if there was any kind of relationship between them. Although the analysis was only made for month of March, there was no relationship observed. So it was decided unnecessary to continue and move on.
-![Covid vs Arrest]()
+![line chart](https://github.com/kseniadyakova10/2019WH_Group_Project/blob/main/static/image/Line_chart.png?raw=true)
 
 ### Resources:
 * https://www.kaggle.com/unsdsn/world-happiness
