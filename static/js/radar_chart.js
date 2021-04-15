@@ -59,7 +59,7 @@ function getChart(dataID){
             labels: ['GDP', 'Social Support', 'Life Expectancy', 'Freedom', 'Generosity', 'Corruption'],
             datasets: [{
                 label: '2019 Data',
-                backgroundColor: 'rgb(126, 237, 148)',
+                backgroundColor: 'rgb(126, 237, 148, 0.2)',
                 borderColor: 'rgb(82, 186, 103)',
                 data: selectedData
             }]
