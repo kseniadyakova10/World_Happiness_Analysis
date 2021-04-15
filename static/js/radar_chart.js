@@ -1,11 +1,11 @@
-var svgWidth = 950;
-var svgHeight = 500;
+var svgWidth = 650;
+var svgHeight = 150;
 
 // Define the chart's margins as an object
 var margin = {
   top: 10,
   right: 10,
-  bottom: 50,
+  bottom: 70,
   left: 100
 };
 
