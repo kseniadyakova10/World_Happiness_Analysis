@@ -23,111 +23,82 @@ var svg = d3.select("#myChart")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-//Search function
-function onlyUnique(value, index, self){
-  return self.indexOf(value) == index;
-}
+d3.json("../getMyJson").then(function(worldData){
 
-
-//get the data from each country based on the search function and create a line chart of country's score
-function getChart(dataID){
-  d3.json("../getMyJson").then(function(worldData){
     console.log(worldData);
 
-    var data = worldData.filter(d => d.country == dataID);
+    //list of countries
+    var allCountries = d3.map(worldData, d => d.country).keys()
+    console.log(allCountries)
 
-    console.log(data);
-
-    data.forEach(function(data){
-      data.rank = +data.rank;
-      data.country = data.country;
-      data.score =  +data.score;
-      data.gdp = +data.gdp;
-      data.social_support = +data.social_support;
-      data.life_expectancy = +data.life_expectancy;
-      data.freedom = +data.freedom;
-      data.generosity = +data.generosity;
-      data.corruption = +data.corruption;
-      data.year = data.year;
-    })
-
-    var xLinearScale = d3.scaleTime()
-      .domain(d3.extent(data, d => d.year))
-      .range([0, chartWidth]);
-
-    var yLinearScale = d3.scaleLinear()
-      .domain([d3.min(data, d => d.score), d3.max(data, d => d.score)])
-      .range([chartHeight, 0]);
-
+    //add countries to the button
+    d3.select("#selDataset")
+        .selectAll("myOptions")
+            .data(allCountries)
+        .enter()
+            .append("option")
+        .text(d => d)
+        .attr("value", d => d)
+        .sort();
+    
+    //add x-axis
+    var xLinearScale = d3.scaleLinear()
+        .domain(d3.extent(worldData, d => +d.year))
+        .range([0, chartWidth]);
+    
     var bottomAxis = d3.axisBottom(xLinearScale).tickFormat(d3.format("d"));
-    var leftAxis = d3.axisLeft(yLinearScale);
-
-
-    var line = d3.line()
-      .x(data => xLinearScale(data.year))
-      .y(data => yLinearScale(data.score));
-
-
-    chartGroup.append("path")
-      .attr("stroke", "black")
-      .attr("stroke-width", "1")
-      .attr("fill", "none")
-      .attr("d", line(data));
-
-    chartGroup.append("g")
-      .classed("axis", true)
-      .call(leftAxis);
 
     chartGroup.append("g")
       .classed("axis", true)
       .attr("transform", `translate(0, ${chartHeight})`)
-      .call(bottomAxis);
+      .call(bottomAxis.ticks(5));
 
-    chartGroup.append("text")
-      .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + 30})`)
-      .classed("year text", true)
-      .text("Year");
+    //add y-axis
+    var yLinearScale = d3.scaleLinear()
+      .domain([0, d3.max(worldData, d => d.score)])
+      .range([chartHeight, 0]);
 
-    chartGroup.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 60)
-      .attr("x", 0 - (chartHeight/2))
-      .attr("class", "axisText")
-      .text("Country Score")
+    var leftAxis = d3.axisLeft(yLinearScale);
 
-  })
-};
+    chartGroup.append("g")
+      .classed("axis", true)
+      .call(leftAxis);
+    
+    //initialize line with first country on list
+    var line = chartGroup.append("path")
+        .datum(worldData.filter(d => d.country == allCountries[0]))
+        .attr("d", d3.line()
+            .x(d => xLinearScale(d.year))
+            .y(d => yLinearScale(d.score))
+        )
+        .attr("stroke", "black")
+        .style("stroke-width", "1")
+        .style("fill", "none");
 
-//default
-function init(){
-  var selector = d3.select("#selDataset");
-  d3.json("../getMyJson").then((data) => {
-    var countryData = data.map(d => d.country);
-    var uniqueData = countryData.filter(onlyUnique).sort();
-    console.log(uniqueData);
+    //function for updating
+    function update(selectedGroup) {
 
-    uniqueData.forEach((d) => {
-      selector
-        .append("option")
-        .text(d)
-        .property("value", d);
-    });
+        //create new data with selection
+        var dataFilter = worldData.filter(d => d.country == selectedGroup)
 
-    var resultData = uniqueData[0];
-    getChart(resultData);
+        //give a line for new group
+        line
+            .datum(dataFilter)
+            .transition()
+            .duration(1000)
+            .attr("d", d3.line()
+                .x(d => xLinearScale(d.year))
+                .y(d => yLinearScale(d.score))
+            )
+            .attr("stroke", "black")
+    }
 
-
-  });
-
-};
-
-init();
-
-d3.selectAll("#selDataset").on("change", optionChanged);
-
-//get new data and create new chart per new data
-function optionChanged(newSample){
-  chartGroup.html("");
-  getChart(newSample);
-
-};
+    //when button is changed
+    d3.select("#selDataset").on("change", function(d) {
+        //recover option that was chosen
+        var selectedOption = d3.select(this).property("value")
+        //run the updateChart fucntion
+        update(selectedOption)
+    })
+})
+    
